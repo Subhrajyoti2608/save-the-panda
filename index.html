@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Save Animal Life</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script
+        src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+
+    <script src="./js/playerMovement.js"></script>
+</head>
+
+<body>
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="cage" src="./assets/cage/scene.gltf"></a-asset-item>
+            <a-asset-item id="panda" src="./assets/panda/scene.gltf"></a-asset-item>
+        </a-assets>
+
+        <a-entity id="environment" environment="preset:forest" rotation></a-entity>
+
+        <a-entity id="player" position="0 1.6 0" player-movement></a-entity>
+
+        <a-entity gltf-model="#cage" position="-2 0 -5" scale="1.2 1.2 1.2"></a-entity>
+
+        <a-entity gltf-model="#panda" position="-4 0.8 -7" scale="0.007 0.007 0.007" rotation="0 180 0"></a-entity>
+
+
+        <a-entity id="ins1" position="0 4.25669 -5"
+            text="font: mozillavr; width:10; height: 10; value: Save the PANDA!!!">
+        </a-entity>
+
+        <a-entity id="camera" camera position="0 1.6 0" look-controls="pointerLockEnabled: false"></a-entity>
+
+
+        <a-entity light="type:ambient; color:white; intensity:0.5"></a-entity>
+
+        <a-entity light="type:directional; color:#EEE; intensity:1"></a-entity>
+    </a-scene>
+</body>
+
+</html>
