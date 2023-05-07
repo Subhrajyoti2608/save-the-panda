@@ -1,42 +1,77 @@
-AFRAME.registerComponent("ball",{
-    init: function(){
-        this.throwBubbles()
+AFRAME.registerComponent("bowling-balls", {
+    init: function () {
+      this.throwBall();
     },
-    throwBubbles: function(){
-        window.addEventListener("keydown",(e)=>{
-            if(e.key === "z"){
-                var bubble = document.createElement("a-entity")
+    throwBall: function () {
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "z") {
+          var  ball = document.createElement("a-entity");
+  
+          ball.setAttribute("gltf-model", "./assets/ball/scene.gltf");
+  
+          ball.setAttribute("scale", { x: 1.5, y: 1.5,  z: 1.5});
+  
+          var cam = document.querySelector("#camera");
+  
+          pos = cam.getAttribute("position");
+  
+          ball.setAttribute("position", {
+            x: pos.x,
+            y: pos.y-0.6,
+            z: pos.z,
+          });
+  
+          var camera = document.querySelector("#camera").object3D;
+  
+          //get the camera direction as Three.js Vector
+          var direction = new THREE.Vector3();
+          camera.getWorldDirection(direction);
+  
+          //set the velocity and it's direction
+          ball.setAttribute("velocity", direction.multiplyScalar(-10));
+  
+          var scene = document.querySelector("#scene");
+  
+          //set the ball as the dynamic entity
+          ball.setAttribute("dynamic-body", {
+            shape: "sphere",
+            mass: "10",
+          });
+  
+          //add the collide event listener to the ball
+          ball.addEventListener("collide", this.removeBall);
+  
+          scene.appendChild(ball);
+        }
+      });
+    },
 
-                bubble.setAttribute("gltf-model","./assets/ball/scene.gltf")
+    removeBall: function(e){
+        var scene = document.querySelector("#scene")
 
-                bubble.setAttribute("scale",{x:3, y:3, z:3})
+        var element = e.detail.target.el 
 
-                var cam = document.querySelector("#camera")
+        var elementHit = e.detail.body.el
 
-                pos = cam.getAttribute("position")
+        var cage = document.querySelector("#cage-p")
 
-                bubble.setAttribute("position",{
-                    x:pos.x,
-                    y:pos.y,
-                    z:pos.z+1
-                });
+        var text1 = document.querySelector("#text1")
 
-                var camera = document.querySelector("#camera").object3D;
+        var text2 = document.querySelector("#text2")
 
-                var direction = new THREE.vector3();
-                camera.getWorldDirection(direction);
+        cage.setAttribute("visible",false)
 
-                bubble.setAttribute("velocity",direction.multiplyScalar(-10))
+        text1.setAttribute("visible",false)
 
-                var scene = document.querySelector("#scene")
+        text2.setAttribute("visible",true)
 
-                bubble.setAttribute("dynamic-body",{
-                    shape:"sphere",
-                    mass:"5"
-                })
+        element.removeEventListener("collide",this.removeBall)
 
-                scene.appendChild(bubble)
-            }
-        })
+        scene.removeChild(element)
     }
-})
+
+
+    
+  });
+  
+  
