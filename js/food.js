@@ -22,7 +22,7 @@ AFRAME.registerComponent("food",{
                 z: pos.z-0.6,
               });
 
-              food.setAttribute("static-body",{shape:"circle"})
+              food.setAttribute("dynamic-body",{shape:"circle", mass:"5"})
 
               var camera = document.querySelector("#camera").object3D
 

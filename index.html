@@ -16,6 +16,7 @@
     <!--<script src="./js/gameObjects.js"></script>-->
     <script src="./js/action.js"></script>
     <script src="./js/food.js"></script>
+    <script src="./js/game.js"></script>
 </head>
 
 <body>
@@ -25,6 +26,7 @@
             <a-asset-item id="panda" src="./assets/panda/scene.gltf"></a-asset-item>
             <a-asset-item id="commando" src="./assets/commando/scene.gltf"></a-asset-item>
             <a-asset-item id="watermelon" src="./assets/watermelon/scene.gltf"></a-asset-item>
+            <a-asset-item id="ball" src="./assets/ball/scene.gltf"></a-asset-item>
             <audio id="footstep" src="./sounds/footStep.mp3"></audio>
         </a-assets>
 
@@ -34,7 +36,9 @@
 
         <a-entity id="cage-p" gltf-model="#cage" position="1 0.4 -5" scale="1.5 1.4 2.4" static-body visible="true"></a-entity>
 
-        <a-entity id="panda-p" gltf-model="#panda" position="-0.4 1.2 -6.97" scale="0.007 0.007 0.007" rotation="0 180 0" static-body></a-entity>
+        <a-entity id="panda-p" gltf-model="#panda" position="-0.4 1.2 -6.97" scale="0.007 0.007 0.007" rotation="0 180 0" static-body visible="true" game-play></a-entity>
+
+        <a-entity id="ball-p" gltf-model="#ball" position="0 1.4 0" scale="1.5 1.5 1.5"  visible="false"></a-entity>
 
         <!--<a-entity id="food1" gltf-model="#watermelon"></a-entity>-->
 
@@ -56,7 +60,40 @@
             text="font: mozillavr; width:10; height: 10; value: Give food to the PANDA!!!" visible="false">
         </a-entity>
 
-        <a-entity id="camera" camera position="0 2.0 0" look-controls wasd-controls></a-entity>
+        <a-entity id="camera" camera position="0 2.4 0" look-controls wasd-controls></a-entity>
+
+
+        <a-entity position="0 0 0">
+            <a-entity
+              position="-3.2 5.5 -5"
+              text="font: aileronsemibold; width: 12; color: black; value: TIME\nREMAINING"
+            ></a-entity>
+            <a-entity
+              id="timer"
+              position="-4.8 5.2 -5"
+              text="font: exo2bold; align: center; width: 20; color: black; value: 00:00"
+            ></a-entity>
+          </a-entity>
+
+          <a-entity position="0 0 0">
+            <a-entity
+              position="4.6 5.5 -5"
+              text="font: exo2bold; align: center; width: 16; color: black; value: SCORE"
+            ></a-entity>
+            <a-entity
+              id="score"
+              position="4.8 4.8 -5"
+              text="font: exo2bold; align: center; width: 22; color: black; value: 0"
+            ></a-entity>
+          </a-entity>
+
+
+          <a-entity
+        id="game_over_text"
+        position="0 7.5 0"
+        text="font: exo2bold; align: center; width: 100; color: white;value: Game Over!!!"
+        visible="false"
+      ></a-entity>
 
 
         <a-entity light="type:ambient; color:white; intensity:0.5"></a-entity>

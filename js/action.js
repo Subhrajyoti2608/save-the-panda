@@ -5,21 +5,11 @@ AFRAME.registerComponent("bowling-balls", {
     throwBall: function () {
       window.addEventListener("keydown", (e) => {
         if (e.key === "z") {
-          var  ball = document.createElement("a-entity");
+          var ball = document.querySelector("#ball-p")
   
-          ball.setAttribute("gltf-model", "./assets/ball/scene.gltf");
+          ball.setAttribute("visible", true);
   
-          ball.setAttribute("scale", { x: 1.5, y: 1.5,  z: 1.5});
-  
-          var cam = document.querySelector("#camera");
-  
-          pos = cam.getAttribute("position");
-  
-          ball.setAttribute("position", {
-            x: pos.x,
-            y: pos.y-0.6,
-            z: pos.z,
-          });
+          
   
           var camera = document.querySelector("#camera").object3D;
   
@@ -46,12 +36,10 @@ AFRAME.registerComponent("bowling-balls", {
       });
     },
 
-    removeBall: function(e){
-        var scene = document.querySelector("#scene")
+    removeBall: function(){
+       
 
-        var element = e.detail.target.el 
-
-        var elementHit = e.detail.body.el
+        var ball = document.querySelector("#ball-p")
 
         var cage = document.querySelector("#cage-p")
 
@@ -59,15 +47,22 @@ AFRAME.registerComponent("bowling-balls", {
 
         var text2 = document.querySelector("#text2")
 
+
+        if(ball.includes(cage)){
+
+        
+
         cage.setAttribute("visible",false)
 
         text1.setAttribute("visible",false)
 
         text2.setAttribute("visible",true)
 
-        element.removeEventListener("collide",this.removeBall)
+        }
 
-        scene.removeChild(element)
+        //element.removeEventListener("collide",this.removeBall)
+
+        //scene.removeChild(element)
     }
 
 
