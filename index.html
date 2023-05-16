@@ -4,14 +4,13 @@
 <head>
     <title>Save Animal Life</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script
-        src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
-    <script
-        src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
-    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
 
+  <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
 
+  
     <script src="./js/playerMovement.js"></script>
     <!--<script src="./js/gameObjects.js"></script>-->
     <script src="./js/action.js"></script>
@@ -20,7 +19,7 @@
 </head>
 
 <body>
-    <a-scene id="scene">
+    <a-scene id="scene" inspector-plugin-recast>
         <a-assets>
             <a-asset-item id="cage" src="./assets/cage/scene.gltf"></a-asset-item>
             <a-asset-item id="panda" src="./assets/panda/scene.gltf"></a-asset-item>

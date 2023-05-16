@@ -1,4 +1,7 @@
 AFRAME.registerComponent("game-play",{
+    schema: {
+       elementId: {type:"string", default:"#cage1"}
+    },
     init: function(){
         var duration = 300;
         var timerEl = document.querySelector("#timer")
@@ -32,6 +35,31 @@ AFRAME.registerComponent("game-play",{
             }
         },1000)
     },
+
+
+    isCollided: function(elemntId){
+      var element = document.querySelector(elemntId)
+      element.addEventListener("collide", (e) => {
+        if (elemntId.includes("#cage")) {
+          element.setAttribute("visible", false);
+          this.updateScore();
+          this.updateTargets();
+        } 
+        else {
+          this.gameOver();
+        }
+    });
+    },
+
+    updateScore: function () {
+        var element = document.querySelector("#score");
+        var count = element.getAttribute("text").value;
+        var currentScore = parseInt(count);
+        currentScore += 50;
+        element.setAttribute("text", {
+          value: currentScore,
+        });
+      },
 
     gameOver: function(){
 

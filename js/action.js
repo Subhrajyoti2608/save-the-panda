@@ -1,72 +1,75 @@
 AFRAME.registerComponent("bowling-balls", {
-    init: function () {
-      this.throwBall();
-    },
-    throwBall: function () {
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "z") {
-          var ball = document.querySelector("#ball-p")
-  
-          ball.setAttribute("visible", true);
-  
-          
-  
-          var camera = document.querySelector("#camera").object3D;
-  
-          //get the camera direction as Three.js Vector
-          var direction = new THREE.Vector3();
-          camera.getWorldDirection(direction);
-  
-          //set the velocity and it's direction
-          ball.setAttribute("velocity", direction.multiplyScalar(-10));
-  
-          var scene = document.querySelector("#scene");
-  
-          //set the ball as the dynamic entity
-          ball.setAttribute("dynamic-body", {
-            shape: "sphere",
-            mass: "10",
-          });
-  
-          //add the collide event listener to the ball
-          ball.addEventListener("collide", this.removeBall);
-  
-          scene.appendChild(ball);
-        }
-      });
-    },
+  init: function () {
+    this.throwBall();
+  },
+  throwBall: function () {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "z") {
+        var ball = document.createElement("a-entity")
 
-    removeBall: function(){
-       
+        ball.setAttribute("gltf-model", "assets/ball/scene.gltf" );
 
-        var ball = document.querySelector("#ball-p")
+        ball.setAttribute("scale", { x: 1.5, y: 1.5, z: 1.5 })
 
-        var cage = document.querySelector("#cage-p")
+        var cam = document.querySelector("#camera")
 
-        var text1 = document.querySelector("#text1")
+        var pos = cam.getAttribute("position")
 
-        var text2 = document.querySelector("#text2")
+        ball.setAttribute("position", {
+          x: pos.x,
+          y: pos.y - 1.0,
+          z: pos.z
+        })
 
 
-        if(ball.includes(cage)){
+        var camera = document.querySelector("#camera").object3D;
 
-        
+        //get the camera direction as Three.js Vector
+        var direction = new THREE.Vector3();
+        camera.getWorldDirection(direction);
 
-        cage.setAttribute("visible",false)
+        //set the velocity and it's direction
+        ball.setAttribute("velocity", direction.multiplyScalar(-10));
 
-        text1.setAttribute("visible",false)
+        var scene = document.querySelector("#scene");
 
-        text2.setAttribute("visible",true)
+        //set the ball as the dynamic entity
+        ball.setAttribute("dynamic-body", {
+          shape: "sphere",
+          mass: "10",
+        });
 
-        }
+        //add the collide event listener to the ball
+        ball.addEventListener("collide", this.removeBall);
 
-        //element.removeEventListener("collide",this.removeBall)
+        scene.appendChild(ball);
+      }
+    });
+  },
 
-        //scene.removeChild(element)
+  removeBullet: function (e) {
+    //bullet element
+    var element = e.detail.target.el;
+
+    //element which is hit
+    var elementHit = e.detail.body.el;
+
+    if (elementHit.id.includes("#cage")) {
+      elementHit.setAttribute("visble", false);
+
+      //impulse and point vector
+      
+
+      //remove event listener
+      element.removeEventListener("collide", this.removeBullet);
+
+      //remove the bullets from the scene
+      var scene = document.querySelector("#scene");
+      scene.removeChild(element);
     }
+  },
 
 
-    
-  });
-  
-  
+
+});
+
